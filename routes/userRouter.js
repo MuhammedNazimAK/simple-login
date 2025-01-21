@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
+require('dotenv').config();
 
-const name = "admin";
-const pass = "pass123";
 
 router.get("/", (req, res) => {
   if (req.session.isLoggedIn) {
@@ -30,7 +29,7 @@ router.post("/login", (req, res) => {
   if(req.session.isLoggedIn) {
     res.redirect("/");
   }else{
-    if (name === username && pass === password) {
+    if (process.env.ADMIN_NAME === username && process.env.ADMIN_PASS === password) {
       req.session.isLoggedIn = true;
       res.redirect("/");
     } else {
